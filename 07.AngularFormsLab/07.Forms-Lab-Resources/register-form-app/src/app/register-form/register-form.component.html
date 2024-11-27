@@ -1,0 +1,144 @@
+<div class="container">
+
+  <form #form="ngForm" (ngSubmit)="register(form)">
+
+    <fieldset>
+      <h1>Registration Form</h1>
+
+      <p class="field field-icon">
+        <label for="username"><span><i class="fas fa-user"></i></span></label>
+        <input [class]="(
+          (inputUsername?.touched && inputUsername?.errors?.['required']) 
+          || 
+          (inputUsername?.touched && inputUsername?.errors?.['testPattern'])
+           )
+           ? 'error': ''" type="text" name="username" id="username" placeholder="Mark Ulrich" required minlength="6"
+          ngModel #inputUsername="ngModel" [pattern]="testPattern">
+      </p>
+
+      @if(inputUsername?.touched){
+      <div>
+        @if(inputUsername?.errors?.['required']){
+        <p class="error">Name is required!</p>
+        }
+        <!--  -->
+        @if(inputUsername?.errors?.['pattern']){
+        <p class="error">Name is not valid!</p>
+        }
+      </div>
+      }
+
+
+
+      <p class="field field-icon">
+        <label for="email"><span><i class="fas fa-envelope"></i></span></label>
+        <input [class]="(
+          (inputEmail?.touched && inputEmail?.errors?.['required']) || 
+           (inputEmail?.touched && inputEmail?.errors?.['email']))
+           ? 'error': ''" type="text" name="email" id="email" required email placeholder="marк@gmial.com" ngModel
+          #inputEmail="ngModel">
+      </p>
+      @if(inputEmail?.touched){
+      <div>
+        @if(inputEmail?.errors?.['required']){
+        <p class="error">Email is required!</p>
+        }
+        <!--  -->
+        @if(inputEmail?.errors?.['email']){
+        <p class="error">Email is not valid!</p>
+        }
+      </div>
+      }
+
+
+      <p class="field field-icon">
+        <label for="tel"><span><i class="fas fa-phone"></i></span></label>
+        <select name="tel" id="tel" class="tel">
+          <option value="1">+359</option>
+        </select>
+        <input [class]="(
+          (inputTel?.touched && inputTel?.errors?.['required']) || 
+           (inputTel?.touched && inputTel?.errors?.['minlength']))
+           ? 'error': ''" type="text" name="tel" id="tel" placeholder="888 888" required minlength="9" ngModel
+          #inputTel="ngModel">
+      </p>
+      @if(inputTel?.touched){
+      <div>
+        @if(inputTel?.errors?.['required']){
+        <p class="error">Phone number is required!</p>
+        }
+        <!--  -->
+        @if(inputTel?.errors?.['minlength']){
+        <p class="error">Phone number is not valid!</p>
+        }
+      </div>
+      }
+
+      <p class="field field-icon">
+        <label for="building"><span><i class="fas fa-building"></i></span></label>
+        <select name="building" id="building" class="building">
+          <option value="1">Designer</option>
+        </select>
+      </p>
+
+      <p class="field field-icon">
+        <label for="password"><span><i class="fas fa-lock"></i></span></label>
+        <input [class]="(
+          (inputPassword?.touched && inputPassword?.errors?.['required']) || 
+           (inputPassword?.touched && inputPassword?.errors?.['minlength'])|| 
+           (inputPassword?.touched && inputPassword?.errors?.['maxlength'])|| 
+           (inputPassword?.touched && inputPassword?.errors?.['passPattern']))
+           ? 'error': ''" type="password" name="password" id="password" placeholder="******" ngModel
+          #inputPassword="ngModel" required maxlength="16" minlength="3" [pattern]="passPattern">
+      </p>
+      @if(inputPassword?.touched){
+      <div>
+        @if(inputPassword?.errors?.['required']){
+        <p class="error">Passwoord is required!</p>
+        }
+        <!--  -->
+        @if(inputPassword?.errors?.['minlength']){
+        <p class="error">Passwoord is not long enough!</p>
+        }
+        @if(inputPassword?.errors?.['maxlength']){
+        <p class="error">Passwoord is too long!</p>
+        }
+        @if(inputPassword?.errors?.['pattern']){
+        <p class="error">Passwoord is not valid!</p>
+        }
+      </div>
+      }
+
+      <p class="field field-icon">
+        <label for="re-password"><span><i class="fas fa-lock"></i></span></label>
+        <input [class]="(
+          (inputRePassword?.touched && inputRePassword?.errors?.['required']))
+           ? 'error': ''" type="password" name="rePassword" id="rePassword" placeholder="******" ngModel
+          #inputRePassword="ngModel" required minlength="3" maxlength="9"  >
+      </p>
+      @if(inputRePassword?.touched){
+        <div>
+          @if(inputRePassword?.errors?.['required']){
+          <p class="error">Confirm passwoord is required!</p>
+          }
+          <!--  -->
+          @if(!passwordsMatch){
+            <p class="error">Passwoords doesnt match!</p>
+            }
+          
+        </div>
+        }
+
+      <p>
+        <button [disabled]="form.invalid" >Create
+          Account</button>
+      </p>
+
+      <p class="text-center">
+        Have an account?
+        <a href="">Log In</a>
+      </p>
+
+    </fieldset>
+  </form>
+</div>
