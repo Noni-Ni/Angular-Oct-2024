@@ -89,7 +89,7 @@
            (inputPassword?.touched && inputPassword?.errors?.['maxlength'])|| 
            (inputPassword?.touched && inputPassword?.errors?.['passPattern']))
            ? 'error': ''" type="password" name="password" id="password" placeholder="******" ngModel
-          #inputPassword="ngModel" required maxlength="16" minlength="3" [pattern]="passPattern">
+          #inputPassword="ngModel" required maxlength="16" minlength="3" [pattern]="passPattern" >
       </p>
       @if(inputPassword?.touched){
       <div>
@@ -114,7 +114,7 @@
         <input [class]="(
           (inputRePassword?.touched && inputRePassword?.errors?.['required']))
            ? 'error': ''" type="password" name="rePassword" id="rePassword" placeholder="******" ngModel
-          #inputRePassword="ngModel" required minlength="3" maxlength="9"  >
+          #inputRePassword="ngModel" required minlength="3" maxlength="9" passwordsMatch="passwordsMatch" >
       </p>
       @if(inputRePassword?.touched){
         <div>
@@ -123,11 +123,25 @@
           }
           <!--  -->
           @if(!passwordsMatch){
-            <p class="error">Passwoords doesnt match!</p>
+            <p class="error">Passwoords doesn't match!</p>
             }
           
         </div>
         }
+        <p class="field field-icon">
+          <label for="imageURL"><span><i class="fas fa-image"></i></span></label>
+          <input [class]="(inputImageURL?.touched && inputImageURL?.errors?.['incorrect'])
+          ? 'error': ''" type="text" name="imageURL" id="imageURL" placeholder="http...jpg/png" ngModel
+            #inputImageURL="ngModel" appCheckImage >
+        </p>
+        @if(inputImageURL?.touched){
+          <div>
+            @if(inputImageURL?.errors?.['incorrect']){
+            <p class="error">Image URL must starts with http and ends with jpg/png!</p>
+            }
+            
+          </div>
+          }
 
       <p>
         <button [disabled]="form.invalid" >Create
